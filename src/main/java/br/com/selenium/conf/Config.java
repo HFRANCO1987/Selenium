@@ -9,11 +9,11 @@ public class Config {
 	// Linux
 	public static final String WEB_DRIVER_PATH = "chromedriver";
 
-	public static final String TOP_URL = "http://sjbv.vitaesaudepublica.com.br";
+	public static final String TOP_URL = "";
 	
-	public static final String LOGIN = "alcibarros";
+	public static final String LOGIN = "";
 	
-	public static final String SENHA = "qwe123";
+	public static final String SENHA = "";
 	
 	public static final long DEFAULT_TIMEOUT_SECONDS = 10;
 	
