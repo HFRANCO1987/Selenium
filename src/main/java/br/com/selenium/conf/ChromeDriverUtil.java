@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.junit.Assert;
 
 //import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -23,19 +24,20 @@ public class ChromeDriverUtil {
     private boolean logged = false;
 
     static {
-        System.setProperty("webdriver.chrome.driver", System.getProperties().getProperty("user.dir")+ "/"+Config.WEB_DRIVER_PATH);
-        
+        System.setProperty("webdriver.chrome.driver", System.getProperties().getProperty("user.dir") + "/" + Config.WEB_DRIVER_PATH);
+
         ChromeOptions options = new ChromeOptions();
-	options.addArguments("window-size=1440,900");
- 
-	DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-	capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-	driver = new ChromeDriver(capabilities);
+        options.addArguments("window-size=1440,900");
+
+        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+        driver = new ChromeDriver(capabilities);
         //driver.manage().timeouts().implicitlyWait(Config.DEFAULT_TIMEOUT_SECONDS, TimeUnit.SECONDS);
     }
 
     public void login() {
         driver.navigate().to(Config.TOP_URL);
+        navigateTo(Config.TOP_URL + "/salute/pages/principal.faces");
         driver.findElement(By.id("identificador")).sendKeys(Config.LOGIN);
         driver.findElement(By.id("senha")).sendKeys(Config.SENHA);
         driver.findElement(By.id("buttonEntrar")).click();
@@ -66,7 +68,9 @@ public class ChromeDriverUtil {
         if (waitInSecond != null) {
             try {
                 Thread.sleep(waitInSecond * 1000);
-            } catch (InterruptedException ex) { ex.printStackTrace(); }
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -80,13 +84,13 @@ public class ChromeDriverUtil {
     }
 
     public void write(String id, String value) {
-        write(id, value, 2);
+        write(id, value, 1);
     }
 
     public void write(String id, String value, Integer waitInSecond) {
         if (this.findElementById(id).getAttribute("value").equals("")) {
             this.findElementById(id).sendKeys(value);
-            waitInSecond(waitInSecond);
+            //waitInSecond(waitInSecond);
         }
     }
 
@@ -110,11 +114,6 @@ public class ChromeDriverUtil {
         selectAutoComplete(id, palavra, index, 3);
     }
 
-    /**
-     * @autor: Alci Barros
-     * @date: 30/09/2013
-     *
-     */
     public void selectAutoComplete(String id, String palavra, int index, Integer wait) throws InterruptedException {
 
         write(id + "_input", palavra, wait);
@@ -153,7 +152,7 @@ public class ChromeDriverUtil {
     public void assertMessageIs(String msg) {
         String a = getGrowlMessage().toString();
         String b = bundle.getString(msg.trim()).toString();
-//        Assert.assertEquals(a, b);
+        Assert.assertEquals(a, b);
         waitInSecond(2);
     }
 
@@ -166,7 +165,7 @@ public class ChromeDriverUtil {
     }
 
     public void assertContains(String msg) throws InterruptedException {
-//        Assert.assertTrue(getGrowlMessage().trim().contains(msg));
+        Assert.assertTrue(getGrowlMessage().trim().contains(msg));
         waitInSecond(2);
     }
 
@@ -190,11 +189,7 @@ public class ChromeDriverUtil {
 
     public void selectAutoCompleteListElementTable(String s, int i) {
     }
-    
-    /*
-     * @autor: Alci Barros
-     * @date: 23/06/2014
-     */
+
     public void selectTable(String id, int index, Integer wait) throws InterruptedException {
         WebElement panel = findElementById(id + "_data");
         List<WebElement> findElements = panel.findElements(By.tagName("tr"));
@@ -204,4 +199,5 @@ public class ChromeDriverUtil {
         }
         waitInSecond(wait);
     }
+
 }
