@@ -8,6 +8,7 @@ public class Config {
 	public static final String TOP_URL = "";
 	
 	public static final String LOGIN = "";
+
 	public static final String SENHA = "";
 	
 	public static final long DEFAULT_TIMEOUT_SECONDS = 10;
