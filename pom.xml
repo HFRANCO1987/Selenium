@@ -35,7 +35,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <includes>
-                                <include>**/br/com/selenium/*</include>
+                                <include>**/br/com/selenium/modulo/estoque/*</include>
                             </includes>
                         </configuration>
                     </plugin>
